@@ -14,9 +14,9 @@ int main()
    // std::cout << "U: " << svd.matrixU() << std::endl;;
    // std::cout << "V: " << svd.matrixV() << std::endl;;
    // std::cout << "Sigma: " << svd.singularValues() << std::endl;;
-   int M=5;
-   int N=10;
-   int K= 5;
+   int M=40;
+   int N=40001;
+   int K= 2755;
 
    Eigen::MatrixXd matched_filter;   // yet to take conjugate and complex numbers.
    matched_filter.setRandom(420,1);
@@ -60,13 +60,13 @@ int main()
          // cout<<"k"<<time_delay_arr_P(Eigen::all,m);
          for(int r=0;r<N;r++){
             // cout<<Pnu(idx_values(Eigen::all,r));
-            Pnu(idx_values(Eigen::all,r)) += ph_cor_coeffc(r) * matched_filter * nu(m);
+            // Pnu(idx_values(Eigen::all,r)) += ph_cor_coeffc(r) * matched_filter * nu(m);
             
             // result_matrix+=ph_cor_coeffc(r) * matched_filter * nu(m);
-            // for(int l=0;l<420;l++){
-            //     int s=idx_values(l,r);
-            //     Pnu(s) += ph_cor_coeffc(r) * matched_filter(l) * nu(m);
-            // }
+            for(int l=0;l<420;l++){
+                int s=idx_values(l,r);
+                Pnu(s) += ph_cor_coeffc(r) * matched_filter(l) * nu(m);
+            }
             
             // cout<<"Hello";
          }
